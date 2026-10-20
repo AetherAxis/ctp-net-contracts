@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ctp-net-contracts</AssemblyName>
+    <RootNamespace>Ctp.Net</RootNamespace>
+  </PropertyGroup>
+  <!-- 零依赖：纯 DTO / 枚举 / 接口 / 异常 / 日历。任何人可引用。 -->
+</Project>
