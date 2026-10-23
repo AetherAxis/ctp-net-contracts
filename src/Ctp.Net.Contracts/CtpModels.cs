@@ -38,6 +38,10 @@ public sealed record CtpPosition
     public int YdPosition { get; init; }
     public int TotalPosition { get; init; }
     public int TodayPosition { get; init; }
+    /// <summary>持仓成本（= Σ 开仓价 × 手数 × 合约乘数，单位与权益同）。**不是**每手均价——
+    /// 换算均价需要合约乘数（本契约不含合约信息），所以消费方要展示均价须另查合约。
+    /// 加它是为了让上层能算真实持仓盈亏，而不是拿最新价冒充开仓价。</summary>
+    public double PositionCost { get; init; }
     public double UseMargin { get; init; }
     public double PositionProfit { get; init; }
     public double CloseProfit { get; init; }
@@ -66,6 +70,9 @@ public sealed record CtpOrder
     public string InsertTime { get; init; } = "";
     public string UpdateTime { get; init; } = "";
     public string StatusMsg { get; init; } = "";
+
+    /// <summary>报单状态的强类型视图（<see cref="OrderStatusRaw"/> 仍是线上唯一的权威值）。</summary>
+    public CtpOrderStatus Status => OrderStatusRaw.ToStatus();
 
     public override string ToString() =>
         $"{InstrumentId} {Direction}{OffsetFlag} {VolumeTotalOriginal}@{LimitPrice} " +

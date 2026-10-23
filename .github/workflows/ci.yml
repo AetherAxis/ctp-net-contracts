@@ -36,3 +36,9 @@ jobs:
       - name: Build
         run: dotnet build Ctp.Net.Contracts.slnx -c Release
         working-directory: ctp-net-contracts
+
+      # 契约钉子：枚举 byte 值 == CTP char 码、异常码精度、交易时段边界。
+      # 纯托管、零 native、零兄弟仓——契约正典的回归不该依赖任何消费方。
+      - name: Test
+        run: dotnet test Ctp.Net.Contracts.slnx -c Release --no-build
+        working-directory: ctp-net-contracts

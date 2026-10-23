@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="src/Ctp.Net.Contracts/Ctp.Net.Contracts.csproj" />
+  <Project Path="tests/Ctp.Net.Contracts.Tests/Ctp.Net.Contracts.Tests.csproj" />
 </Solution>

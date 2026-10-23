@@ -15,9 +15,19 @@ namespace Ctp.Net;
 public static class CtpTradingCalendar
 {
     /// <summary>判断给定本地时间是否处于 CTP 交易时段（宽口径并集，不含节假日）。</summary>
-    public static bool IsTradingTime(DateTime now)
+    public static bool IsTradingTime(DateTime now) => IsTradingTime(now, holidays: null);
+
+    /// <summary>
+    /// 带节假日源的版本：法定假日不交易。节假日表由宿主注入（本仓不维护年度数据，
+    /// 也不改变无参重载的既有宽口径语义）。
+    /// <para>跨午夜夜盘按「当前日历日」判断假日——节假日通常整段休市，够用；极端边界
+    /// （节前最后一夜盘的后半段）以保守为准：判为不交易，重连会退避而不会崩。</para>
+    /// </summary>
+    public static bool IsTradingTime(DateTime now, ICtpHolidayCalendar? holidays)
     {
         var dt = now.Kind == DateTimeKind.Utc ? now.ToLocalTime() : now;
+        if (holidays?.IsHoliday(dt.Date) == true)
+            return false;
         var time = dt.TimeOfDay;
         var dow = dt.DayOfWeek;
 
