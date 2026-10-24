@@ -143,4 +143,6 @@ public sealed record CtpOrderInsertResult(string OrderRef, int RequestId);
 
 /// <summary>撤单定位键（FrontId/SessionId/OrderRef 唯一定位一笔报单）。</summary>
 public sealed record CtpOrderRef(
-    string BrokerId, string InvestorId, int FrontId, int SessionId, string OrderRef, string ExchangeId);
+    string BrokerId, string InvestorId, int FrontId, int SessionId, string OrderRef, string ExchangeId,
+    /// <summary>合约代码（撤单必填——DCE 等交易所按「合约 + 报单引用」索引委托；缺它前置回 25「找不到相应报单」）。</summary>
+    string? InstrumentId = null);
