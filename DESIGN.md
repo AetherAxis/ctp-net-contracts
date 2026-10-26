@@ -80,3 +80,10 @@
 - **契约补齐**：新增 `CtpOrderStatus`（镜像 `THOST_FTDC_OST_*`）+ `ToStatus()`/`IsTerminal()`，`CtpOrder.Status` 供消费方用强类型视图（`OrderStatusRaw` 线协议不变）。
 - **可注入节假日**：`CtpTradingCalendar.IsTradingTime(DateTime, ICtpHolidayCalendar?)` 重载 + `ICtpHolidayCalendar`——原来只能吃内置表，节假日无法替换。
 - **持仓成本**：`CtpPosition.PositionCost`（原生 `PositionCost`，= Σ 开仓价×手数×乘数）——上层不再只能拿最新价冒充开仓价。
+
+## 升级补记（2026-10-26）：`CtpInstrument.Name`
+
+服务端合约中文名上契约（用户「ax001 加个中文名」）：④ 品种表是权威源（**只给自有品种配**——
+ax → Aether币价期货；真实品种不由仿真臆造名），RPC `queryInstruments` → ⑤ mapper → 本契约透传。
+注意：⑤ 的 CTP wire「查合约」应答帧名称槽未逆向（见 ⑤ FEATURE_MATRIX §1-8 follow-up）——
+wire 补齐前经 ⑤ 查到的 Name 为空，进程内/RPC 路径已有值。

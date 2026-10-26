@@ -10,6 +10,11 @@ public sealed record CtpInstrument
     /// <summary>合约代码（如 ag2610）。</summary>
     public string InstrumentId { get; init; } = "";
 
+    /// <summary>合约中文名（2026-10-26 起服务端经 queryInstruments 携带——源在 ④ InstrumentCatalog 品种表；
+    /// ax001 = Aether币价期货。注意：⑤ 的 CTP 线协议「查合约」应答帧尚无名称槽（未逆向）——
+    /// RPC/进程内路径已带名，wire 路径补齐前客户端经 ⑤ 查到的 Name 为空）。</summary>
+    public string Name { get; init; } = "";
+
     /// <summary>交易所（SHFE/DCE/CZCE/CFFEX/INE；合成合约为空串）。</summary>
     public string ExchangeId { get; init; } = "";
 
